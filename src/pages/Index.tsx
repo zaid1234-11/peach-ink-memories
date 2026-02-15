@@ -13,6 +13,7 @@ const Index = () => {
     ctx.font = "24px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.fillStyle = "#F6B7A9";
     ctx.fillText("❤", 16, 17);
 
     const img = document.createElement("img");
