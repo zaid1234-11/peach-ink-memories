@@ -1,6 +1,17 @@
 import { forwardRef } from "react";
+import { motion, MotionValue, useTransform } from "framer-motion";
 
-const Receipt = forwardRef<HTMLDivElement>((_, ref) => {
+interface ReceiptProps {
+  songLine?: MotionValue<string> | string;
+  songLineOpacity?: MotionValue<number>;
+}
+
+const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOpacity }, ref) => {
+  // Invert opacity: when song line is visible, hide default heading
+  const defaultOpacity = songLineOpacity
+    ? useTransform(songLineOpacity, [0, 1], [1, 0])
+    : undefined;
+
   return (
     <div
       ref={ref}
@@ -8,7 +19,7 @@ const Receipt = forwardRef<HTMLDivElement>((_, ref) => {
       style={{ perspective: "1000px" }}
     >
       <div
-        className="bg-receipt rounded-t-sm px-6 py-8 shadow-receipt animate-float sm:animate-float md:animate-float"
+        className="bg-receipt rounded-t-sm px-6 py-8 shadow-receipt animate-float"
         style={{
           transform: "rotateX(6deg) rotateZ(2deg)",
           transformStyle: "preserve-3d",
@@ -16,13 +27,31 @@ const Receipt = forwardRef<HTMLDivElement>((_, ref) => {
         }}
       >
         {/* Receipt header */}
-        <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4">
-          <h3 className="font-serif text-lg text-foreground tracking-wide">
-            Peach & Paper
-          </h3>
-          <p className="text-[10px] text-muted-foreground mt-1 tracking-widest uppercase">
-            Memory Receipt
-          </p>
+        <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4 relative min-h-[52px]">
+          {/* Default heading */}
+          <motion.div
+            className="flex flex-col items-center justify-center"
+            style={{ opacity: defaultOpacity ?? 1 }}
+          >
+            <h3 className="font-serif text-lg text-foreground tracking-wide">
+              Peach & Paper
+            </h3>
+            <p className="text-[10px] text-muted-foreground mt-1 tracking-widest uppercase">
+              Memory Receipt
+            </p>
+          </motion.div>
+
+          {/* Song line overlay */}
+          {songLineOpacity && (
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center px-2"
+              style={{ opacity: songLineOpacity }}
+            >
+              <motion.p className="font-serif text-sm text-foreground leading-snug italic">
+                {songLine}
+              </motion.p>
+            </motion.div>
+          )}
         </div>
 
         {/* Receipt lines */}
