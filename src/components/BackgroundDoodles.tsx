@@ -18,7 +18,7 @@ const scatteredSketches = [
 
 const BackgroundDoodles = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden" style={{ mixBlendMode: "multiply" }}>
       {scatteredSketches.map((s, i) => (
         <motion.img
           key={i}
