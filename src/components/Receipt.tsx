@@ -75,9 +75,28 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
             <span>Feeling</span>
             <span>Nostalgic</span>
           </div>
-          <div className="flex justify-between">
-            <span>Lines</span>
-            <span>∞</span>
+          <div className="relative">
+            <div className="flex justify-between">
+              <span>Lines</span>
+              {/* Default ∞ - hides when song line active */}
+              <motion.span
+                style={{ opacity: headingOpacity }}
+                className="transition-opacity duration-300"
+              >
+                ∞
+              </motion.span>
+            </div>
+            {/* Song lyric replaces ∞ */}
+            {songLineOpacity && (
+              <motion.div
+                className="absolute right-0 top-0 text-right max-w-[160px]"
+                style={{ opacity: songOpacity }}
+              >
+                <motion.span className="font-serif text-[10px] text-foreground italic leading-tight">
+                  {songLine}
+                </motion.span>
+              </motion.div>
+            )}
           </div>
           <div className="border-t border-dashed border-brown-muted/20 pt-2 mt-3">
             <div className="flex justify-between font-medium text-foreground">
