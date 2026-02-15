@@ -4,12 +4,15 @@ import { motion, MotionValue, useTransform, motionValue } from "framer-motion";
 interface ReceiptProps {
   songLineOpacity?: MotionValue<number>;
   songLine?: MotionValue<string> | string;
+  scrollProgress?: MotionValue<number>;
 }
 
-const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOpacity }, ref) => {
-  const fallback = useMemo(() => motionValue(0), []);
-  const source = songLineOpacity ?? fallback;
-  const defaultOpacity = useTransform(source, [0, 1], [1, 0]);
+const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOpacity, scrollProgress }, ref) => {
+  const fallbackScroll = useMemo(() => motionValue(0), []);
+  const scroll = scrollProgress ?? fallbackScroll;
+
+  // Hide the default heading once scrolling starts (after 10%)
+  const headingOpacity = useTransform(scroll, [0, 0.08, 0.12], [1, 1, 0]);
 
   return (
     <div
@@ -27,10 +30,10 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
       >
         {/* Receipt header */}
         <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4 relative min-h-[52px]">
-          {/* Default heading - hides when song line visible */}
+          {/* Default heading - hides after first scroll */}
           <motion.div
             className="flex flex-col items-center justify-center"
-            style={{ opacity: defaultOpacity }}
+            style={{ opacity: headingOpacity }}
           >
             <h3 className="font-serif text-lg text-foreground tracking-wide">
               Peach & Paper
