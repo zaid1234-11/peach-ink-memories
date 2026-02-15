@@ -3,6 +3,7 @@ import HeroScrollStory from "@/components/HeroScrollStory";
 import InputSection from "@/components/InputSection";
 import Footer from "@/components/Footer";
 import Snowfall from "react-snowfall";
+import BackgroundDoodles from "@/components/BackgroundDoodles";
 
 const Index = () => {
   const heartImages = useMemo(() => {
@@ -23,6 +24,7 @@ const Index = () => {
 
   return (
     <div className="grain-overlay min-h-screen bg-background">
+      <BackgroundDoodles />
       <Snowfall
         images={heartImages}
         snowflakeCount={40}
