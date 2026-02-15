@@ -135,7 +135,7 @@ const HeroScrollStory = () => {
           className="relative"
           style={{ y: receiptY }}
         >
-          <Receipt songLine={activeSongLine} songLineOpacity={anySongOpacity} />
+          <Receipt songLine={activeSongLine} songLineOpacity={anySongOpacity} scrollProgress={scrollYProgress} />
 
           {/* Single sketch at bottom, crossfading */}
           {steps.map((step, i) => (
