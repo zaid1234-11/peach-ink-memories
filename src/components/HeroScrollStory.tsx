@@ -76,7 +76,7 @@ const HeroScrollStory = () => {
     offset: ["start start", "end end"],
   });
 
-  const receiptY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const receiptY = useTransform(scrollYProgress, [0, 0.3, 1], [100, -20, -200]);
 
   // Individual opacities for each step (hooks called unconditionally)
   const op0 = useSongLineOpacity(scrollYProgress, steps[0].range);
