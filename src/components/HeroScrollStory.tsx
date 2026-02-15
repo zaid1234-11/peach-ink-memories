@@ -15,27 +15,35 @@ const steps = [
   { src: sketch5, range: [0.70, 0.85] as [number, number], line: "Every little thing is gonna be alright…" },
 ];
 
-function SketchAtBottom({
-  src,
-  range,
-  scrollProgress,
-}: {
-  src: string;
-  range: [number, number];
-  scrollProgress: MotionValue<number>;
-}) {
-  const mid = range[0] + (range[1] - range[0]) * 0.3;
-  const fadeOut = range[1] - (range[1] - range[0]) * 0.15;
-  const opacity = useTransform(
+// Shared opacity hook — used for BOTH sketch and lyric so they're perfectly synced
+function useStepOpacity(
+  scrollProgress: MotionValue<number>,
+  range: [number, number]
+) {
+  const fadeIn = range[0];
+  const visible = range[0] + (range[1] - range[0]) * 0.25;
+  const holdEnd = range[1] - (range[1] - range[0]) * 0.1;
+  const fadeOut = range[1];
+  return useTransform(
     scrollProgress,
-    [range[0], mid, fadeOut, range[1]],
+    [fadeIn, visible, holdEnd, fadeOut],
     [0, 1, 1, 0]
   );
-  const translateY = useTransform(
-    scrollProgress,
-    [range[0], mid],
-    [20, 0]
-  );
+}
+
+function SketchAtBottom({
+  src,
+  opacity,
+  scrollProgress,
+  range,
+}: {
+  src: string;
+  opacity: MotionValue<number>;
+  scrollProgress: MotionValue<number>;
+  range: [number, number];
+}) {
+  const mid = range[0] + (range[1] - range[0]) * 0.25;
+  const translateY = useTransform(scrollProgress, [range[0], mid], [20, 0]);
 
   return (
     <motion.img
@@ -56,19 +64,6 @@ function SketchAtBottom({
   );
 }
 
-function useSongLineOpacity(
-  scrollProgress: MotionValue<number>,
-  range: [number, number]
-) {
-  const mid = range[0] + (range[1] - range[0]) * 0.3;
-  const fadeOut = range[1] - (range[1] - range[0]) * 0.15;
-  return useTransform(
-    scrollProgress,
-    [range[0], mid, fadeOut, range[1]],
-    [0, 1, 1, 0]
-  );
-}
-
 const HeroScrollStory = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -78,21 +73,21 @@ const HeroScrollStory = () => {
 
   const receiptY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -100, -250]);
 
-  // Individual opacities for each step (hooks called unconditionally)
-  const op0 = useSongLineOpacity(scrollYProgress, steps[0].range);
-  const op1 = useSongLineOpacity(scrollYProgress, steps[1].range);
-  const op2 = useSongLineOpacity(scrollYProgress, steps[2].range);
-  const op3 = useSongLineOpacity(scrollYProgress, steps[3].range);
-  const op4 = useSongLineOpacity(scrollYProgress, steps[4].range);
+  // Single shared opacity per step — drives both sketch AND lyric
+  const op0 = useStepOpacity(scrollYProgress, steps[0].range);
+  const op1 = useStepOpacity(scrollYProgress, steps[1].range);
+  const op2 = useStepOpacity(scrollYProgress, steps[2].range);
+  const op3 = useStepOpacity(scrollYProgress, steps[3].range);
+  const op4 = useStepOpacity(scrollYProgress, steps[4].range);
   const allOpacities = [op0, op1, op2, op3, op4];
 
-  // Combined opacity for the song line area
+  // Combined opacity: is any step active?
   const anySongOpacity = useTransform(
     allOpacities,
     (values: number[]) => Math.max(...values)
   );
 
-  // Active song line text
+  // Active song line text — picks the step with highest opacity
   const activeSongLine = useTransform(
     allOpacities,
     (values: number[]) => {
@@ -138,13 +133,14 @@ const HeroScrollStory = () => {
         >
           <Receipt songLine={activeSongLine} songLineOpacity={anySongOpacity} scrollProgress={scrollYProgress} />
 
-          {/* Single sketch at bottom, crossfading */}
+          {/* Sketches use the SAME opacity as the lyrics */}
           {steps.map((step, i) => (
             <SketchAtBottom
               key={i}
               src={step.src}
-              range={step.range}
+              opacity={allOpacities[i]}
               scrollProgress={scrollYProgress}
+              range={step.range}
             />
           ))}
         </motion.div>
