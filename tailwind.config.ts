@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        peach: {
+          DEFAULT: "hsl(var(--peach))",
+          light: "hsl(var(--peach-light))",
+          dark: "hsl(var(--peach-dark))",
+        },
+        brown: {
+          dark: "hsl(var(--brown-dark))",
+          muted: "hsl(var(--brown-muted))",
+        },
+        cream: "hsl(var(--cream))",
+        receipt: "hsl(var(--receipt))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +80,27 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px) rotateX(6deg) rotateZ(2deg)" },
+          "50%": { transform: "translateY(-8px) rotateX(6deg) rotateZ(2deg)" },
+        },
+        "float-mobile": {
+          "0%, 100%": { transform: "translateY(0px) rotateX(3deg) rotateZ(1deg)" },
+          "50%": { transform: "translateY(-5px) rotateX(3deg) rotateZ(1deg)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "float-mobile": "float-mobile 6s ease-in-out infinite",
       },
     },
   },
