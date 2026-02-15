@@ -9,10 +9,12 @@ interface ReceiptProps {
 
 const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOpacity, scrollProgress }, ref) => {
   const fallbackScroll = useMemo(() => motionValue(0), []);
+  const fallbackSongOpacity = useMemo(() => motionValue(0), []);
   const scroll = scrollProgress ?? fallbackScroll;
+  const songOpacity = songLineOpacity ?? fallbackSongOpacity;
 
-  // Hide the default heading once scrolling starts (after 10%)
-  const headingOpacity = useTransform(scroll, [0, 0.01], [1, 0]);
+  // Hide heading: inverse of song line opacity so they never overlap
+  const headingOpacity = useTransform(songOpacity, [0, 0.05], [1, 0]);
 
   return (
     <div
