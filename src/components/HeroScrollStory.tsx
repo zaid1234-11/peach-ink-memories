@@ -113,6 +113,7 @@ const HeroScrollStory = () => {
           className="text-center mb-8 px-4"
           style={{
             opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
+            y: useTransform(scrollYProgress, [0, 0.1], [0, -80]),
           }}
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-foreground mb-3 tracking-tight">
