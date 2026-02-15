@@ -13,8 +13,7 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
   const scroll = scrollProgress ?? fallbackScroll;
   const songOpacity = songLineOpacity ?? fallbackSongOpacity;
 
-  // Hide heading: inverse of song line opacity so they never overlap
-  const headingOpacity = useTransform(songOpacity, [0, 0.05], [1, 0]);
+  const infinityOpacity = useTransform(songOpacity, [0, 0.1], [1, 0]);
 
   return (
     <div
@@ -37,32 +36,14 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
           e.currentTarget.style.transform = "rotateX(6deg) rotateZ(2deg)";
         }}
       >
-        {/* Receipt header */}
-        <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4 relative min-h-[52px]">
-          {/* Default heading - hides after first scroll */}
-          <motion.div
-            className="flex flex-col items-center justify-center"
-            style={{ opacity: headingOpacity }}
-          >
-            <h3 className="font-serif text-lg text-foreground tracking-wide">
-              Peach & Paper
-            </h3>
-            <p className="text-[10px] text-muted-foreground mt-1 tracking-widest uppercase">
-              Memory Receipt
-            </p>
-          </motion.div>
-
-          {/* Song line overlay */}
-          {songLineOpacity && (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center px-2"
-              style={{ opacity: songLineOpacity }}
-            >
-              <motion.p className="font-serif text-sm text-foreground leading-snug italic">
-                {songLine}
-              </motion.p>
-            </motion.div>
-          )}
+        {/* Receipt header - always visible */}
+        <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4">
+          <h3 className="font-serif text-lg text-foreground tracking-wide">
+            Peach & Paper
+          </h3>
+          <p className="text-[10px] text-muted-foreground mt-1 tracking-widest uppercase">
+            Memory Receipt
+          </p>
         </div>
 
         {/* Receipt lines */}
@@ -80,7 +61,7 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
               <span>Lines</span>
               {/* Default ∞ - hides when song line active */}
               <motion.span
-                style={{ opacity: headingOpacity }}
+                style={{ opacity: infinityOpacity }}
                 className="transition-opacity duration-300"
               >
                 ∞
