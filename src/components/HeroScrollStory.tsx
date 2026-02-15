@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import Receipt from "./Receipt";
 import sketch1 from "@/assets/sketch-1.png";
 import sketch2 from "@/assets/sketch-2.png";
@@ -7,65 +7,65 @@ import sketch3 from "@/assets/sketch-3.png";
 import sketch4 from "@/assets/sketch-4.png";
 import sketch5 from "@/assets/sketch-5.png";
 
-const sketches = [
-  { src: sketch1, range: [0.10, 0.25] as [number, number], x: -20, y: -30, rotate: -5, scale: 0.6 },
-  { src: sketch2, range: [0.25, 0.40] as [number, number], x: 30, y: 10, rotate: 3, scale: 0.5 },
-  { src: sketch3, range: [0.40, 0.55] as [number, number], x: -10, y: 60, rotate: -2, scale: 0.45 },
-  { src: sketch4, range: [0.55, 0.70] as [number, number], x: 20, y: 100, rotate: 4, scale: 0.5 },
-  { src: sketch5, range: [0.70, 0.85] as [number, number], x: -15, y: 150, rotate: -3, scale: 0.55 },
+const steps = [
+  { src: sketch1, range: [0.10, 0.25] as [number, number], line: "And in the end, the love you take…" },
+  { src: sketch2, range: [0.25, 0.40] as [number, number], line: "We're just two lost souls swimming…" },
+  { src: sketch3, range: [0.40, 0.55] as [number, number], line: "I will always love you…" },
+  { src: sketch4, range: [0.55, 0.70] as [number, number], line: "Maybe I was born to hold you…" },
+  { src: sketch5, range: [0.70, 0.85] as [number, number], line: "Every little thing is gonna be alright…" },
 ];
 
-function SketchLayer({
+function SketchAtBottom({
   src,
   range,
-  x,
-  y,
-  rotate,
-  scale: targetScale,
   scrollProgress,
 }: {
   src: string;
   range: [number, number];
-  x: number;
-  y: number;
-  rotate: number;
-  scale: number;
-  scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+  scrollProgress: MotionValue<number>;
 }) {
+  const mid = range[0] + (range[1] - range[0]) * 0.3;
+  const fadeOut = range[1] - (range[1] - range[0]) * 0.15;
   const opacity = useTransform(
     scrollProgress,
-    [range[0], range[0] + (range[1] - range[0]) * 0.4, range[1]],
-    [0, 1, 1]
+    [range[0], mid, fadeOut, range[1]],
+    [0, 1, 1, 0]
   );
   const translateY = useTransform(
     scrollProgress,
-    [range[0], range[1]],
-    [-40, 0]
-  );
-  const scaleVal = useTransform(
-    scrollProgress,
-    [range[0], range[1]],
-    [0.95, 1]
+    [range[0], mid],
+    [20, 0]
   );
 
   return (
     <motion.img
       src={src}
       alt=""
-      className="absolute pointer-events-none"
+      className="absolute left-1/2 pointer-events-none"
       style={{
         opacity,
         y: translateY,
-        scale: scaleVal,
-        left: `calc(50% + ${x}px)`,
-        top: `${y}px`,
-        width: `${targetScale * 200}px`,
-        height: `${targetScale * 200}px`,
-        rotate: `${rotate}deg`,
+        x: "-50%",
+        bottom: "-10px",
+        width: "100px",
+        height: "100px",
+        objectFit: "contain",
         mixBlendMode: "multiply",
-        transform: `translate(-50%, 0)`,
       }}
     />
+  );
+}
+
+function useSongLineOpacity(
+  scrollProgress: MotionValue<number>,
+  range: [number, number]
+) {
+  const mid = range[0] + (range[1] - range[0]) * 0.3;
+  const fadeOut = range[1] - (range[1] - range[0]) * 0.15;
+  return useTransform(
+    scrollProgress,
+    [range[0], mid, fadeOut, range[1]],
+    [0, 1, 1, 0]
   );
 }
 
@@ -78,11 +78,37 @@ const HeroScrollStory = () => {
 
   const receiptY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
+  // Individual opacities for each step (hooks called unconditionally)
+  const op0 = useSongLineOpacity(scrollYProgress, steps[0].range);
+  const op1 = useSongLineOpacity(scrollYProgress, steps[1].range);
+  const op2 = useSongLineOpacity(scrollYProgress, steps[2].range);
+  const op3 = useSongLineOpacity(scrollYProgress, steps[3].range);
+  const op4 = useSongLineOpacity(scrollYProgress, steps[4].range);
+  const allOpacities = [op0, op1, op2, op3, op4];
+
+  // Combined opacity for the song line area
+  const anySongOpacity = useTransform(
+    allOpacities,
+    (values: number[]) => Math.max(...values)
+  );
+
+  // Active song line text
+  const activeSongLine = useTransform(
+    allOpacities,
+    (values: number[]) => {
+      let maxIdx = 0;
+      let maxVal = 0;
+      values.forEach((v, i) => {
+        if (v > maxVal) { maxVal = v; maxIdx = i; }
+      });
+      return maxVal > 0.05 ? steps[maxIdx].line : "";
+    }
+  );
+
   return (
     <section ref={containerRef} className="relative" style={{ height: "500vh" }}>
-      {/* Sticky wrapper */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center pt-16 sm:pt-20 overflow-hidden">
-        {/* Hero text - appears at start */}
+        {/* Hero text */}
         <motion.div
           className="text-center mb-8 px-4"
           style={{
@@ -104,18 +130,19 @@ const HeroScrollStory = () => {
           </motion.div>
         </motion.div>
 
-        {/* Receipt with sketch overlays */}
+        {/* Receipt with single sketch + song line */}
         <motion.div
           className="relative"
           style={{ y: receiptY }}
         >
-          <Receipt />
+          <Receipt songLine={activeSongLine} songLineOpacity={anySongOpacity} />
 
-          {/* Sketch overlay layers */}
-          {sketches.map((sketch, i) => (
-            <SketchLayer
+          {/* Single sketch at bottom, crossfading */}
+          {steps.map((step, i) => (
+            <SketchAtBottom
               key={i}
-              {...sketch}
+              src={step.src}
+              range={step.range}
               scrollProgress={scrollYProgress}
             />
           ))}
