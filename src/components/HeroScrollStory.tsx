@@ -81,7 +81,7 @@ const HeroScrollStory = () => {
   return (
     <section ref={containerRef} className="relative" style={{ height: "500vh" }}>
       {/* Sticky wrapper */}
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center pt-16 sm:pt-20 overflow-hidden">
         {/* Hero text - appears at start */}
         <motion.div
           className="text-center mb-8 px-4"
