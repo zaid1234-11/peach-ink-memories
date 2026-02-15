@@ -1,16 +1,15 @@
-import { forwardRef } from "react";
-import { motion, MotionValue, useTransform } from "framer-motion";
+import { forwardRef, useMemo } from "react";
+import { motion, MotionValue, useTransform, motionValue } from "framer-motion";
 
 interface ReceiptProps {
-  songLine?: MotionValue<string> | string;
   songLineOpacity?: MotionValue<number>;
+  songLine?: MotionValue<string> | string;
 }
 
 const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOpacity }, ref) => {
-  // Invert opacity: when song line is visible, hide default heading
-  const defaultOpacity = songLineOpacity
-    ? useTransform(songLineOpacity, [0, 1], [1, 0])
-    : undefined;
+  const fallback = useMemo(() => motionValue(0), []);
+  const source = songLineOpacity ?? fallback;
+  const defaultOpacity = useTransform(source, [0, 1], [1, 0]);
 
   return (
     <div
@@ -28,10 +27,10 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
       >
         {/* Receipt header */}
         <div className="text-center border-b border-dashed border-brown-muted/20 pb-4 mb-4 relative min-h-[52px]">
-          {/* Default heading */}
+          {/* Default heading - hides when song line visible */}
           <motion.div
             className="flex flex-col items-center justify-center"
-            style={{ opacity: defaultOpacity ?? 1 }}
+            style={{ opacity: defaultOpacity }}
           >
             <h3 className="font-serif text-lg text-foreground tracking-wide">
               Peach & Paper
