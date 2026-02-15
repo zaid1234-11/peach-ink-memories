@@ -46,9 +46,9 @@ function SketchAtBottom({
         opacity,
         y: translateY,
         x: "-50%",
-        bottom: "-10px",
-        width: "100px",
-        height: "100px",
+        bottom: "-20px",
+        width: "160px",
+        height: "160px",
         objectFit: "contain",
         mixBlendMode: "multiply",
       }}
