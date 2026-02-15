@@ -12,7 +12,7 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
   const scroll = scrollProgress ?? fallbackScroll;
 
   // Hide the default heading once scrolling starts (after 10%)
-  const headingOpacity = useTransform(scroll, [0, 0.05, 0.08], [1, 0.3, 0]);
+  const headingOpacity = useTransform(scroll, [0, 0.01], [1, 0]);
 
   return (
     <div
