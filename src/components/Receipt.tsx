@@ -23,11 +23,18 @@ const Receipt = forwardRef<HTMLDivElement, ReceiptProps>(({ songLine, songLineOp
       style={{ perspective: "1000px" }}
     >
       <div
-        className="bg-receipt rounded-t-sm px-6 py-8 shadow-receipt animate-float"
+        className="bg-receipt rounded-t-sm px-6 py-8 animate-float transition-all duration-300 ease-out hover:shadow-[0_30px_80px_-15px_hsl(10_30%_25%/0.4),0_15px_35px_-10px_hsl(10_30%_30%/0.2)] shadow-[0_20px_60px_-15px_hsl(10_30%_30%/0.3),0_8px_20px_-10px_hsl(10_30%_30%/0.15)]"
         style={{
           transform: "rotateX(6deg) rotateZ(2deg)",
           transformStyle: "preserve-3d",
           minHeight: "380px",
+          cursor: "default",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "rotateX(10deg) rotateZ(-2deg) translateY(-8px) scale(1.02)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "rotateX(6deg) rotateZ(2deg)";
         }}
       >
         {/* Receipt header */}
