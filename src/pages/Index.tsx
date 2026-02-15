@@ -23,7 +23,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="grain-overlay min-h-screen bg-background">
+    <div className="grain-overlay min-h-screen">
       <BackgroundDoodles />
       <Snowfall
         images={heartImages}
