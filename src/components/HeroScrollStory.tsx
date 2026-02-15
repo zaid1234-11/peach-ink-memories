@@ -84,7 +84,7 @@ const HeroScrollStory = () => {
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         {/* Hero text - appears at start */}
         <motion.div
-          className="text-center mb-16 px-4"
+          className="text-center mb-8 px-4"
           style={{
             opacity: useTransform(scrollYProgress, [0, 0.08], [1, 0]),
           }}
