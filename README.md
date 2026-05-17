@@ -16,29 +16,22 @@ Designed around warmth, memory, and minimalism, the experience focuses on creati
 
 ## Preview
 
-### Landing Experience
+### Result Experience
 
-![Landing Page](./screenshots/home.png)
+![Result Experience](./images/result.png)
 
-### Receipt Storytelling UI
+### Homepage
 
-![Receipt UI](./screenshots/story.png)
-
-### Mobile Responsive Design
-
-![Mobile View](./screenshots/mobile.png)
-
-Create a `screenshots` folder in the project root and place your images there.
+![Homepage](./images/homepage_new.png)
 
 Example structure:
 
 ```bash
 project/
 |
-+-- screenshots/
-|   +-- home.png
-|   +-- story.png
-|   +-- mobile.png
++-- images/
+|   +-- result.png
+|   +-- homepage_new.png
 ```
 
 ---
