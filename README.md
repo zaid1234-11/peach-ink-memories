@@ -1,109 +1,136 @@
-````markdown id="eh8x7n"
-# Peach Ink Memories
+# Peach & Paper
 
-A cinematic AI-powered storytelling experience that transforms emotions, lyrics, and memories into aesthetic visual moments.
+An AI-powered visual storytelling experience inspired by nostalgia, handwritten memories, and cinematic design.
 
-Peach Ink Memories is a creative web application designed around nostalgia, soft visuals, and emotional storytelling. The platform blends modern web technologies with immersive UI design to create a calm and expressive digital experience inspired by handwritten memories, thermal receipts, and cinematic aesthetics.
+Peach & Paper transforms emotions, lyrics, and personal moments into aesthetic receipt-style visual experiences. The project blends Generative AI with immersive frontend design to create a soft, emotional, and interactive storytelling platform.
+
+Designed around warmth, memory, and minimalism, the experience focuses on creating visuals that feel personal, nostalgic, and human.
 
 ---
 
 ## Live Experience
 
-[Visit Project](https://www.zaidsportfolio.in/)
+[Visit Peach & Paper](https://peach-and-paper.vercel.app/)
 
 ---
 
 ## Preview
 
-### Landing Page
+### Landing Experience
 
 ![Landing Page](./screenshots/home.png)
 
-### Story Experience
+### Receipt Storytelling UI
 
-![Story UI](./screenshots/story.png)
+![Receipt UI](./screenshots/story.png)
 
 ### Mobile Responsive Design
 
 ![Mobile View](./screenshots/mobile.png)
 
-Create a `screenshots` folder in the project root and add your preview images there.
+Create a `screenshots` folder in the project root and place your images there.
 
-Example:
+Example structure:
 
 ```bash
 project/
-│
-├── screenshots/
-│   ├── home.png
-│   ├── story.png
-│   └── mobile.png
+|
++-- screenshots/
+|   +-- home.png
+|   +-- story.png
+|   +-- mobile.png
 ```
 
 ---
 
 ## Features
 
-- Cinematic and immersive UI experience
-- Modern responsive design
-- Smooth scroll-based storytelling
-- Elegant animations using Framer Motion
-- Emotional and aesthetic visual presentation
-- Reusable UI components with shadcn/ui
-- Fast and optimized development workflow
-- Clean and scalable frontend architecture
+- AI-powered visual storytelling
+- Cinematic scroll-based interactions
+- Receipt-inspired aesthetic design
+- Emotional and nostalgic visual direction
+- Smooth animations with Framer Motion
+- Responsive modern interface
+- Minimal and immersive UI experience
+- Dynamic storytelling workflow
+- Soft pastel-inspired design system
+
+---
+
+## Inspiration
+
+Peach & Paper was inspired by:
+
+- handwritten memories
+- old receipts and paper textures
+- emotional song lyrics
+- nostalgic photography
+- cinematic lighting
+- warm desk aesthetics
+- minimalist sketch storytelling
+
+The goal was to create an experience that feels calm, emotional, and visually personal rather than purely functional.
 
 ---
 
 ## Why I Built This
 
-I wanted to create a project that feels emotional rather than purely functional.
+I wanted to explore how AI and frontend design could work together to create emotional digital experiences instead of traditional utility-focused applications.
 
-Most modern apps focus heavily on utility, but Peach Ink Memories explores how design, motion, and storytelling can create a more personal digital experience. The project was inspired by nostalgic visuals, handwritten memories, music-driven emotions, and minimalist cinematic aesthetics.
+Most AI projects focus heavily on productivity and automation, while Peach & Paper focuses on atmosphere, storytelling, and emotional interaction.
 
-It also helped me experiment with:
-- interactive UI design
-- frontend animation systems
-- modern React architecture
-- aesthetic storytelling experiences
-- responsive interface development
+The project also helped me experiment with:
+
+- AI-assisted creative workflows
+- immersive frontend animation
+- visual storytelling systems
+- aesthetic UI design
+- scroll-driven interactions
+- responsive user experiences
 
 ---
 
 ## Tech Stack
 
+- Vite
 - React
 - TypeScript
-- Vite
 - Tailwind CSS
 - shadcn/ui
 - Framer Motion
-- React Router
-- React Query
+- Generative AI APIs
+- Vercel
+
+---
+
+## How It Works
+
+```text
+User Input
+   |
+Narrative Processing
+   |
+Scene Generation
+   |
+AI Visual Creation
+   |
+Interactive Story Experience
+```
 
 ---
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm
-
----
-
-## Installation
-
 Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/zaid1234-11/peach-and-paper.git
 ```
 
-Move into the project folder:
+Move into the project directory:
 
 ```bash
-cd peach-ink-memories
+cd peach-and-paper
 ```
 
 Install dependencies:
@@ -118,10 +145,10 @@ Start the development server:
 npm run dev
 ```
 
-Open:
+Open the local URL shown in your terminal. Vite commonly starts at:
 
 ```bash
-http://localhost:8080
+http://localhost:5173
 ```
 
 ---
@@ -129,55 +156,50 @@ http://localhost:8080
 ## Available Scripts
 
 ```bash
-npm run dev         # Start development server
-npm run build       # Build for production
-npm run preview     # Preview production build
-npm run lint        # Run ESLint
-npm test            # Run tests
-npm run test:watch  # Run tests in watch mode
+npm run dev          # Start development server
+npm run build        # Create a production build
+npm run build:dev    # Create a development-mode build
+npm run preview      # Preview the production build
+npm run lint         # Run ESLint
+npm test             # Run tests once
+npm run test:watch   # Run tests in watch mode
 ```
 
 ---
 
-## Project Structure
+## Design Direction
 
-```bash
-src/
-│
-├── components/
-├── pages/
-├── hooks/
-├── lib/
-├── assets/
-└── styles/
-```
+The visual identity of Peach & Paper is built around:
 
----
-
-## Design Inspiration
-
-The visual direction of Peach Ink Memories is inspired by:
-- thermal receipt aesthetics
-- handwritten sketches
-- nostalgic photography
+- soft peach pastel tones
 - warm cinematic lighting
-- emotional storytelling
-- minimalist visual experiences
+- thermal receipt textures
+- handwritten-inspired aesthetics
+- layered storytelling visuals
+- minimalist emotional design
 
 ---
 
 ## Future Improvements
 
-- AI-generated memory visuals
-- Dynamic storytelling generation
+- AI-generated receipt sketches
 - Personalized memory timelines
-- Music-reactive animations
+- Music-reactive storytelling
+- Multi-scene visual generation
 - Exportable visual journals
-- AI-assisted scene generation
+- AI-assisted narrative creation
+- Dynamic ambient animations
+
+---
+
+## Deployment
+
+This project is deployed on:
+
+- Vercel
 
 ---
 
 ## License
 
 This project is licensed under the MIT License.
-````
