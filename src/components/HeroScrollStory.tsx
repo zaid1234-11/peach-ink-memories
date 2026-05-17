@@ -101,7 +101,7 @@ const HeroScrollStory = () => {
   );
 
   return (
-    <section ref={containerRef} className="relative" style={{ height: "500vh" }}>
+    <section ref={containerRef} className="relative" style={{ height: "500vh", position: "relative" }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center pt-16 sm:pt-20 overflow-hidden">
         {/* Hero text */}
         <motion.div
@@ -111,16 +111,30 @@ const HeroScrollStory = () => {
             y: useTransform(scrollYProgress, [0, 0.1], [0, -80]),
           }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-foreground mb-3 tracking-tight">
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl font-serif text-foreground mb-3 tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
             Peach & Paper
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto italic">
+          </motion.h1>
+          <motion.p
+            className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto italic"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          >
             Turn your lines into peach-printed memories.
-          </p>
+          </motion.p>
           <motion.div
             className="mt-6 text-muted-foreground/50 text-sm"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 8, 0] }}
+            transition={{
+              opacity: { duration: 0.8, delay: 0.6 },
+              y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            }}
           >
             ↓ scroll to reveal
           </motion.div>
