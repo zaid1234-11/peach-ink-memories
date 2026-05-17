@@ -17,13 +17,18 @@ Designed around warmth, memory, and minimalism, the experience focuses on creati
 ## Preview
 
 ### Result Experience
+<p align="center">
+  <img src="./images/result.png" alt="Home UI" width="720" />
+</p>
 
-![Result Experience](./images/result.png)
-
-![Homepage](./images/homepage_new.png)
+<p align="center">
+  <img src="./images/homepage_new.png" alt="Home UI" width="720" />
+</p>
 
 ### Homepage
-![Homepage](./images/homepage.png)
+<p align="center">
+  <img src="./images/homepage.png" alt="Home UI" width="720" />
+</p>
 
 ## Features
 
