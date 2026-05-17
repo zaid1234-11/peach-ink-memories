@@ -20,21 +20,10 @@ Designed around warmth, memory, and minimalism, the experience focuses on creati
 
 ![Result Experience](./images/result.png)
 
-### Homepage
-
 ![Homepage](./images/homepage_new.png)
 
-Example structure:
-
-```bash
-project/
-|
-+-- images/
-|   +-- result.png
-|   +-- homepage_new.png
-```
-
----
+### Homepage
+![Homepage](./images/homepage.png)
 
 ## Features
 
